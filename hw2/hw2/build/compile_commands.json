@@ -1,0 +1,20 @@
+[
+{
+  "directory": "C:/Users/User/Documents/Year 4/OS/hw2/CIS520_HW2/hw2/hw2/build",
+  "command": "C:/Users/User/Documents/compilers/w64devkit/bin/gcc.exe  @CMakeFiles/dyn_array.dir/includes_C.rsp -std=c11 -Wall -Wextra -Wshadow -Werror -g -o CMakeFiles/dyn_array.dir/src/dyn_array.c.obj -c \"C:/Users/User/Documents/Year 4/OS/hw2/CIS520_HW2/hw2/hw2/src/dyn_array.c\"",
+  "file": "C:/Users/User/Documents/Year 4/OS/hw2/CIS520_HW2/hw2/hw2/src/dyn_array.c",
+  "output": "CMakeFiles/dyn_array.dir/src/dyn_array.c.obj"
+},
+{
+  "directory": "C:/Users/User/Documents/Year 4/OS/hw2/CIS520_HW2/hw2/hw2/build",
+  "command": "C:/Users/User/Documents/compilers/w64devkit/bin/gcc.exe  @CMakeFiles/anaylysis.dir/includes_C.rsp -std=c11 -Wall -Wextra -Wshadow -Werror -g -o CMakeFiles/anaylysis.dir/src/analysis.c.obj -c \"C:/Users/User/Documents/Year 4/OS/hw2/CIS520_HW2/hw2/hw2/src/analysis.c\"",
+  "file": "C:/Users/User/Documents/Year 4/OS/hw2/CIS520_HW2/hw2/hw2/src/analysis.c",
+  "output": "CMakeFiles/anaylysis.dir/src/analysis.c.obj"
+},
+{
+  "directory": "C:/Users/User/Documents/Year 4/OS/hw2/CIS520_HW2/hw2/hw2/build",
+  "command": "C:/Users/User/Documents/compilers/w64devkit/bin/g++.exe  @CMakeFiles/hw2_test.dir/includes_CXX.rsp -std=c++11 -Wall -Wextra -Wshadow -Werror -g -std=gnu++14 -o CMakeFiles/hw2_test.dir/test/tests.cpp.obj -c \"C:/Users/User/Documents/Year 4/OS/hw2/CIS520_HW2/hw2/hw2/test/tests.cpp\"",
+  "file": "C:/Users/User/Documents/Year 4/OS/hw2/CIS520_HW2/hw2/hw2/test/tests.cpp",
+  "output": "CMakeFiles/hw2_test.dir/test/tests.cpp.obj"
+}
+]

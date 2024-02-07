@@ -1,0 +1,2 @@
+C:/Users/User/Documents/compilers/w64devkit/bin/ar.exe qc libdyn_array.a CMakeFiles/dyn_array.dir/src/dyn_array.c.obj
+C:/Users/User/Documents/compilers/w64devkit/bin/ranlib.exe libdyn_array.a

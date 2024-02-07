@@ -1,0 +1,78 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "hw2",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "anaylysis::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-anaylysis-Debug-0c9471695ebf74f0dc61.json",
+					"name" : "anaylysis",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dyn_array::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dyn_array-Debug-75a406ad9fbabca5e01a.json",
+					"name" : "dyn_array",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "hw2_test::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-hw2_test-Debug-7e0119df102976d0df27.json",
+					"name" : "hw2_test",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/User/Documents/Year 4/OS/hw2/CIS520_HW2/hw2/hw2/build",
+		"source" : "C:/Users/User/Documents/Year 4/OS/hw2/CIS520_HW2/hw2/hw2"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}

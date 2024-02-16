@@ -22,7 +22,7 @@ bool first_come_first_serve(dyn_array_t *ready_queue, ScheduleResult_t *result)
 {
     UNUSED(ready_queue);
     UNUSED(result);
-    return false;
+    return true;
 }
 
 bool shortest_job_first(dyn_array_t *ready_queue, ScheduleResult_t *result) 

@@ -49,6 +49,6 @@ set(CMAKE_MAKEFILE_PRODUCTS
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/dyn_array.dir/DependInfo.cmake"
   "CMakeFiles/process_scheduling.dir/DependInfo.cmake"
-  "CMakeFiles/anaylysis.dir/DependInfo.cmake"
+  "CMakeFiles/analysis.dir/DependInfo.cmake"
   "CMakeFiles/hw2_test.dir/DependInfo.cmake"
   )

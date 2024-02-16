@@ -19,7 +19,44 @@ int main(int argc, char **argv)
         return EXIT_FAILURE;
     }
 
-    abort();  // replace me with implementation.
+    // seperates and stores the command line arguements
+    const char *pcb_file = argv[1];
+    const char *algorithm = argv[2];
+    //size_t quantum = atoi(argv[3]);
+
+    // loads the process controll blocks from the file stored in pcb_file
+    dyn_array_t *pcb_array = load_process_control_blocks(pcb_file);
+
+    // makes sure it was loaded correctly
+    if(!pcb_array)
+    {
+        printf("pcb array error");
+        return EXIT_FAILURE;
+    }
+
+    // does the first come first server
+    ScheduleResult_t result;
+    bool success =  false; // default value might need to change
+
+    if(strcmp(algorithm, FCFS) == 0)
+    {
+        success = first_come_first_serve(pcb_array, &result);
+    }
+
+    // makes sure it was a success
+    if(!success)
+    {
+        printf("Error in the scheduling algorithm \n");
+        return EXIT_FAILURE;
+    }
+
+    // cleans up the pcb_array allocation
+    dyn_array_destroy(pcb_array);
+
+    // prints the results
+    printf("Average Waiting Time: %.2f\n", result.average_waiting_time);
+    printf("Average Turnaround Time: %.2f\n", result.average_turnaround_time);
+    printf("Total Clock Time: %lu\n", result.total_run_time);
 
     return EXIT_SUCCESS;
 }

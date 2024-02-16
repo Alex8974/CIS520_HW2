@@ -13,7 +13,7 @@ extern "C"
 #define NUM_PCB 30
 #define QUANTUM 5 // Used for Robin Round for process as the run time limit
 
-TEST(first_come_first_serve, ReadyQueNotNull)
+TEST(first_come_first_serve, Ready_Que_Null)
 {
     // creates a null dyn_array_t
     dyn_array_t* null_ready_queue = nullptr;
@@ -22,13 +22,25 @@ TEST(first_come_first_serve, ReadyQueNotNull)
     ScheduleResult_t result;
 
     // calls the function to be tested with null ready_queue
-    bool success_null = first_come_first_serve(null_ready_queue, &result);
+    bool successNull = first_come_first_serve(null_ready_queue, &result);
 
     // Assert that the function returns false when ready_queue is null
-    EXPECT_FALSE(success_null);
+    EXPECT_FALSE(successNull);
 }
 
+TEST(load_process_control_blocks, BadFileName1)
+{
+    const char *src_file = " ";
+    EXPECT_EQ(NULL, load_process_control_blocks(src_file));
 
+}
+
+TEST(load_process_control_blocks, BadFileName2)
+{
+    const char *src_file = "\n";
+    EXPECT_EQ(NULL, load_process_control_blocks(src_file));
+
+}
 
 /*
 unsigned int score;

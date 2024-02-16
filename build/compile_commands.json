@@ -13,9 +13,21 @@
 },
 {
   "directory": "C:/Users/Alexander/Desktop/CIS520_HW2/build",
-  "command": "C:/Users/Alexander/Compliers/w64devkit/w64devkit/bin/gcc.exe  @CMakeFiles/anaylysis.dir/includes_C.rsp -std=c11 -Wall -Wextra -Wshadow -Werror -g -o CMakeFiles/anaylysis.dir/src/analysis.c.obj -c C:/Users/Alexander/Desktop/CIS520_HW2/hw2/hw2/src/analysis.c",
+  "command": "C:/Users/Alexander/Compliers/w64devkit/w64devkit/bin/gcc.exe  @CMakeFiles/analysis.dir/includes_C.rsp -std=c11 -Wall -Wextra -Wshadow -Werror -g -o CMakeFiles/analysis.dir/src/analysis.c.obj -c C:/Users/Alexander/Desktop/CIS520_HW2/hw2/hw2/src/analysis.c",
   "file": "C:/Users/Alexander/Desktop/CIS520_HW2/hw2/hw2/src/analysis.c",
-  "output": "CMakeFiles/anaylysis.dir/src/analysis.c.obj"
+  "output": "CMakeFiles/analysis.dir/src/analysis.c.obj"
+},
+{
+  "directory": "C:/Users/Alexander/Desktop/CIS520_HW2/build",
+  "command": "C:/Users/Alexander/Compliers/w64devkit/w64devkit/bin/gcc.exe  @CMakeFiles/analysis.dir/includes_C.rsp -std=c11 -Wall -Wextra -Wshadow -Werror -g -o CMakeFiles/analysis.dir/src/process_scheduling.c.obj -c C:/Users/Alexander/Desktop/CIS520_HW2/hw2/hw2/src/process_scheduling.c",
+  "file": "C:/Users/Alexander/Desktop/CIS520_HW2/hw2/hw2/src/process_scheduling.c",
+  "output": "CMakeFiles/analysis.dir/src/process_scheduling.c.obj"
+},
+{
+  "directory": "C:/Users/Alexander/Desktop/CIS520_HW2/build",
+  "command": "C:/Users/Alexander/Compliers/w64devkit/w64devkit/bin/gcc.exe  @CMakeFiles/analysis.dir/includes_C.rsp -std=c11 -Wall -Wextra -Wshadow -Werror -g -o CMakeFiles/analysis.dir/src/dyn_array.c.obj -c C:/Users/Alexander/Desktop/CIS520_HW2/hw2/hw2/src/dyn_array.c",
+  "file": "C:/Users/Alexander/Desktop/CIS520_HW2/hw2/hw2/src/dyn_array.c",
+  "output": "CMakeFiles/analysis.dir/src/dyn_array.c.obj"
 },
 {
   "directory": "C:/Users/Alexander/Desktop/CIS520_HW2/build",

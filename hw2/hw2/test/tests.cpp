@@ -28,6 +28,9 @@ TEST(first_come_first_serve, ReadyQueNotNull)
     EXPECT_FALSE(success_null);
 }
 
+
+
+/*
 unsigned int score;
 unsigned int total;
 
@@ -47,11 +50,12 @@ public:
         std::cout << "SCORE: " << score << '/' << total << std::endl;
     }
 };
+*/
 
 int main(int argc, char **argv)
 {
     ::testing::InitGoogleTest(&argc, argv);
-    ::testing::AddGlobalTestEnvironment(new GradeEnvironment);
+    // ::testing::AddGlobalTestEnvironment(new GradeEnvironment);
     return RUN_ALL_TESTS();
 }
 

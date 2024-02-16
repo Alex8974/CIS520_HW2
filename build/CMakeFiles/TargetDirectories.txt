@@ -1,0 +1,6 @@
+C:/Users/Alexander/Desktop/CIS520_HW2/build/CMakeFiles/dyn_array.dir
+C:/Users/Alexander/Desktop/CIS520_HW2/build/CMakeFiles/process_scheduling.dir
+C:/Users/Alexander/Desktop/CIS520_HW2/build/CMakeFiles/anaylysis.dir
+C:/Users/Alexander/Desktop/CIS520_HW2/build/CMakeFiles/hw2_test.dir
+C:/Users/Alexander/Desktop/CIS520_HW2/build/CMakeFiles/edit_cache.dir
+C:/Users/Alexander/Desktop/CIS520_HW2/build/CMakeFiles/rebuild_cache.dir

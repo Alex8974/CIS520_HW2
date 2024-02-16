@@ -1,0 +1,2 @@
+C:/Users/Alexander/Compliers/w64devkit/w64devkit/bin/ar.exe qc libprocess_scheduling.a CMakeFiles/process_scheduling.dir/src/process_scheduling.c.obj
+C:/Users/Alexander/Compliers/w64devkit/w64devkit/bin/ranlib.exe libprocess_scheduling.a

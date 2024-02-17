@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "C:/Users/User/Documents/Year 4/OS/hw2/CIS520_HW2/hw2/hw2/src/dyn_array.c" "CMakeFiles/dyn_array.dir/src/dyn_array.c.obj" "gcc" "CMakeFiles/dyn_array.dir/src/dyn_array.c.obj.d"
+  "C:/Users/User/Documents/Year 4/OS/CIS520_HW2/hw2/hw2/src/dyn_array.c" "CMakeFiles/dyn_array.dir/src/dyn_array.c.obj" "gcc" "CMakeFiles/dyn_array.dir/src/dyn_array.c.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

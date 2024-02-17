@@ -8,7 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "C:/Users/User/Documents/Year 4/OS/hw2/CIS520_HW2/hw2/hw2/test/tests.cpp" "CMakeFiles/hw2_test.dir/test/tests.cpp.obj" "gcc" "CMakeFiles/hw2_test.dir/test/tests.cpp.obj.d"
+  "C:/Users/User/Documents/Year 4/OS/CIS520_HW2/hw2/hw2/src/process_scheduling.c" "CMakeFiles/hw2_test.dir/src/process_scheduling.c.obj" "gcc" "CMakeFiles/hw2_test.dir/src/process_scheduling.c.obj.d"
+  "C:/Users/User/Documents/Year 4/OS/CIS520_HW2/hw2/hw2/test/tests.cpp" "CMakeFiles/hw2_test.dir/test/tests.cpp.obj" "gcc" "CMakeFiles/hw2_test.dir/test/tests.cpp.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

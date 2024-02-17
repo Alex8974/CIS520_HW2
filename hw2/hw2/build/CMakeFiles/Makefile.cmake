@@ -20,7 +20,6 @@ set(CMAKE_MAKEFILE_DEPENDS
   "C:/Program Files/CMake/share/cmake-3.28/Modules/Compiler/GNU-C.cmake"
   "C:/Program Files/CMake/share/cmake-3.28/Modules/Compiler/GNU-CXX.cmake"
   "C:/Program Files/CMake/share/cmake-3.28/Modules/Compiler/GNU.cmake"
-  "C:/Program Files/CMake/share/cmake-3.28/Modules/Platform/Windows-GNU-C-ABI.cmake"
   "C:/Program Files/CMake/share/cmake-3.28/Modules/Platform/Windows-GNU-C.cmake"
   "C:/Program Files/CMake/share/cmake-3.28/Modules/Platform/Windows-GNU-CXX-ABI.cmake"
   "C:/Program Files/CMake/share/cmake-3.28/Modules/Platform/Windows-GNU-CXX.cmake"
@@ -29,7 +28,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "C:/Program Files/CMake/share/cmake-3.28/Modules/Platform/Windows-windres.cmake"
   "C:/Program Files/CMake/share/cmake-3.28/Modules/Platform/Windows.cmake"
   "C:/Program Files/CMake/share/cmake-3.28/Modules/Platform/WindowsPaths.cmake"
-  "C:/Users/User/Documents/Year 4/OS/hw2/CIS520_HW2/hw2/hw2/CMakeLists.txt"
+  "C:/Users/User/Documents/Year 4/OS/CIS520_HW2/hw2/hw2/CMakeLists.txt"
   "CMakeFiles/3.28.1/CMakeCCompiler.cmake"
   "CMakeFiles/3.28.1/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.28.1/CMakeRCCompiler.cmake"
@@ -50,6 +49,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/dyn_array.dir/DependInfo.cmake"
-  "CMakeFiles/anaylysis.dir/DependInfo.cmake"
+  "CMakeFiles/process_scheduling.dir/DependInfo.cmake"
+  "CMakeFiles/analysis.dir/DependInfo.cmake"
   "CMakeFiles/hw2_test.dir/DependInfo.cmake"
   )

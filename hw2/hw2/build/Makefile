@@ -57,10 +57,10 @@ RM = "C:/Program Files/CMake/bin/cmake.exe" -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "C:/Users/User/Documents/Year 4/OS/hw2/CIS520_HW2/hw2/hw2"
+CMAKE_SOURCE_DIR = "C:/Users/User/Documents/Year 4/OS/CIS520_HW2/hw2/hw2"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "C:/Users/User/Documents/Year 4/OS/hw2/CIS520_HW2/hw2/hw2/build"
+CMAKE_BINARY_DIR = "C:/Users/User/Documents/Year 4/OS/CIS520_HW2/hw2/hw2/build"
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "C:/Users/User/Documents/Year 4/OS/hw2/CIS520_HW2/hw2/hw2/build/CMakeFiles" "C:/Users/User/Documents/Year 4/OS/hw2/CIS520_HW2/hw2/hw2/build//CMakeFiles/progress.marks"
+	$(CMAKE_COMMAND) -E cmake_progress_start "C:/Users/User/Documents/Year 4/OS/CIS520_HW2/hw2/hw2/build/CMakeFiles" "C:/Users/User/Documents/Year 4/OS/CIS520_HW2/hw2/hw2/build//CMakeFiles/progress.marks"
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start "C:/Users/User/Documents/Year 4/OS/hw2/CIS520_HW2/hw2/hw2/build/CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "C:/Users/User/Documents/Year 4/OS/CIS520_HW2/hw2/hw2/build/CMakeFiles" 0
 .PHONY : all
 
 # The main clean target
@@ -130,17 +130,30 @@ dyn_array/fast:
 .PHONY : dyn_array/fast
 
 #=============================================================================
-# Target rules for targets named anaylysis
+# Target rules for targets named process_scheduling
 
 # Build rule for target.
-anaylysis: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 anaylysis
-.PHONY : anaylysis
+process_scheduling: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 process_scheduling
+.PHONY : process_scheduling
 
 # fast build rule for target.
-anaylysis/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/anaylysis.dir/build.make CMakeFiles/anaylysis.dir/build
-.PHONY : anaylysis/fast
+process_scheduling/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/process_scheduling.dir/build.make CMakeFiles/process_scheduling.dir/build
+.PHONY : process_scheduling/fast
+
+#=============================================================================
+# Target rules for targets named analysis
+
+# Build rule for target.
+analysis: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 analysis
+.PHONY : analysis
+
+# fast build rule for target.
+analysis/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/analysis.dir/build.make CMakeFiles/analysis.dir/build
+.PHONY : analysis/fast
 
 #=============================================================================
 # Target rules for targets named hw2_test
@@ -160,7 +173,7 @@ src/analysis.obj: src/analysis.c.obj
 
 # target to build an object file
 src/analysis.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/anaylysis.dir/build.make CMakeFiles/anaylysis.dir/src/analysis.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/analysis.dir/build.make CMakeFiles/analysis.dir/src/analysis.c.obj
 .PHONY : src/analysis.c.obj
 
 src/analysis.i: src/analysis.c.i
@@ -168,7 +181,7 @@ src/analysis.i: src/analysis.c.i
 
 # target to preprocess a source file
 src/analysis.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/anaylysis.dir/build.make CMakeFiles/anaylysis.dir/src/analysis.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/analysis.dir/build.make CMakeFiles/analysis.dir/src/analysis.c.i
 .PHONY : src/analysis.c.i
 
 src/analysis.s: src/analysis.c.s
@@ -176,7 +189,7 @@ src/analysis.s: src/analysis.c.s
 
 # target to generate assembly for a file
 src/analysis.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/anaylysis.dir/build.make CMakeFiles/anaylysis.dir/src/analysis.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/analysis.dir/build.make CMakeFiles/analysis.dir/src/analysis.c.s
 .PHONY : src/analysis.c.s
 
 src/dyn_array.obj: src/dyn_array.c.obj
@@ -185,6 +198,7 @@ src/dyn_array.obj: src/dyn_array.c.obj
 # target to build an object file
 src/dyn_array.c.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/dyn_array.dir/build.make CMakeFiles/dyn_array.dir/src/dyn_array.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/analysis.dir/build.make CMakeFiles/analysis.dir/src/dyn_array.c.obj
 .PHONY : src/dyn_array.c.obj
 
 src/dyn_array.i: src/dyn_array.c.i
@@ -193,6 +207,7 @@ src/dyn_array.i: src/dyn_array.c.i
 # target to preprocess a source file
 src/dyn_array.c.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/dyn_array.dir/build.make CMakeFiles/dyn_array.dir/src/dyn_array.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/analysis.dir/build.make CMakeFiles/analysis.dir/src/dyn_array.c.i
 .PHONY : src/dyn_array.c.i
 
 src/dyn_array.s: src/dyn_array.c.s
@@ -201,7 +216,38 @@ src/dyn_array.s: src/dyn_array.c.s
 # target to generate assembly for a file
 src/dyn_array.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/dyn_array.dir/build.make CMakeFiles/dyn_array.dir/src/dyn_array.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/analysis.dir/build.make CMakeFiles/analysis.dir/src/dyn_array.c.s
 .PHONY : src/dyn_array.c.s
+
+src/process_scheduling.obj: src/process_scheduling.c.obj
+.PHONY : src/process_scheduling.obj
+
+# target to build an object file
+src/process_scheduling.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/process_scheduling.dir/build.make CMakeFiles/process_scheduling.dir/src/process_scheduling.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/analysis.dir/build.make CMakeFiles/analysis.dir/src/process_scheduling.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hw2_test.dir/build.make CMakeFiles/hw2_test.dir/src/process_scheduling.c.obj
+.PHONY : src/process_scheduling.c.obj
+
+src/process_scheduling.i: src/process_scheduling.c.i
+.PHONY : src/process_scheduling.i
+
+# target to preprocess a source file
+src/process_scheduling.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/process_scheduling.dir/build.make CMakeFiles/process_scheduling.dir/src/process_scheduling.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/analysis.dir/build.make CMakeFiles/analysis.dir/src/process_scheduling.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hw2_test.dir/build.make CMakeFiles/hw2_test.dir/src/process_scheduling.c.i
+.PHONY : src/process_scheduling.c.i
+
+src/process_scheduling.s: src/process_scheduling.c.s
+.PHONY : src/process_scheduling.s
+
+# target to generate assembly for a file
+src/process_scheduling.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/process_scheduling.dir/build.make CMakeFiles/process_scheduling.dir/src/process_scheduling.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/analysis.dir/build.make CMakeFiles/analysis.dir/src/process_scheduling.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hw2_test.dir/build.make CMakeFiles/hw2_test.dir/src/process_scheduling.c.s
+.PHONY : src/process_scheduling.c.s
 
 test/tests.obj: test/tests.cpp.obj
 .PHONY : test/tests.obj
@@ -235,15 +281,19 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... anaylysis"
+	@echo "... analysis"
 	@echo "... dyn_array"
 	@echo "... hw2_test"
+	@echo "... process_scheduling"
 	@echo "... src/analysis.obj"
 	@echo "... src/analysis.i"
 	@echo "... src/analysis.s"
 	@echo "... src/dyn_array.obj"
 	@echo "... src/dyn_array.i"
 	@echo "... src/dyn_array.s"
+	@echo "... src/process_scheduling.obj"
+	@echo "... src/process_scheduling.i"
+	@echo "... src/process_scheduling.s"
 	@echo "... test/tests.obj"
 	@echo "... test/tests.i"
 	@echo "... test/tests.s"

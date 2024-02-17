@@ -1,5 +1,5 @@
 CMakeFiles/hw2_test.dir/test/tests.cpp.obj: \
- C:/Users/User/Documents/Year\ 4/OS/hw2/CIS520_HW2/hw2/hw2/test/tests.cpp \
+ C:/Users/User/Documents/Year\ 4/OS/CIS520_HW2/hw2/hw2/test/tests.cpp \
  C:/Users/User/Documents/compilers/w64devkit/x86_64-w64-mingw32/include/fcntl.h \
  C:/Users/User/Documents/compilers/w64devkit/x86_64-w64-mingw32/include/crtdefs.h \
  C:/Users/User/Documents/compilers/w64devkit/x86_64-w64-mingw32/include/corecrt.h \
@@ -226,7 +226,7 @@ CMakeFiles/hw2_test.dir/test/tests.cpp.obj: \
  C:/Users/User/Documents/compilers/w64devkit/x86_64-w64-mingw32/include/gtest/gtest-typed-test.h \
  C:/Users/User/Documents/compilers/w64devkit/x86_64-w64-mingw32/include/gtest/gtest_pred_impl.h \
  C:/Users/User/Documents/compilers/w64devkit/x86_64-w64-mingw32/include/gtest/gtest_prod.h \
- C:/Users/User/Documents/Year\ 4/OS/hw2/CIS520_HW2/hw2/hw2/include/processing_scheduling.h \
+ C:/Users/User/Documents/Year\ 4/OS/CIS520_HW2/hw2/hw2/include/processing_scheduling.h \
  C:/Users/User/Documents/compilers/w64devkit/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stdbool.h \
- C:/Users/User/Documents/Year\ 4/OS/hw2/CIS520_HW2/hw2/hw2/include/dyn_array.h \
- C:/Users/User/Documents/Year\ 4/OS/hw2/CIS520_HW2/hw2/hw2/include/dyn_array.h
+ C:/Users/User/Documents/Year\ 4/OS/CIS520_HW2/hw2/hw2/include/dyn_array.h \
+ C:/Users/User/Documents/Year\ 4/OS/CIS520_HW2/hw2/hw2/include/dyn_array.h

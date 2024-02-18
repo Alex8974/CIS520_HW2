@@ -18,6 +18,11 @@ void virtual_cpu(ProcessControlBlock_t *process_control_block)
     --process_control_block->remaining_burst_time;
 }
 
+
+
+
+
+
 bool first_come_first_serve(dyn_array_t *ready_queue, ScheduleResult_t *result) 
 {
     //checking to make sure that the passed in values are valid
@@ -70,10 +75,78 @@ bool round_robin(dyn_array_t *ready_queue, ScheduleResult_t *result, size_t quan
     return false;
 }
 
+
+
+// Reads the PCB burst time values from the binary file into ProcessControlBlock_t remaining_burst_time field
+// for N number of PCB burst time stored in the file.
+// \param input_file the file containing the PCB burst times
+// \return a populated dyn_array of ProcessControlBlocks if function ran successful else NULL for an error
 dyn_array_t *load_process_control_blocks(const char *input_file) 
 {
-    UNUSED(input_file);
-    return NULL;
+    // Open file in read mode
+    FILE *file = fopen(input_file, "rb");
+
+    if (file == NULL)
+    {
+        perror("Error opening file");
+        return NULL;
+    }
+
+    dyn_array_t *pcb_array = malloc(sizeof(dyn_array_t));
+
+    if (pcb_array == NULL)
+    {
+	
+	// Returns null if array is empty 
+        fclose(file);
+        return NULL;
+
+    }
+
+    // Initialize dyn_array_t
+    pcb_array->size = 0;
+    pcb_array->capacity = 10; // Initial capacity
+    pcb_array->array = malloc(pcb_array->capacity * sizeof(ProcessControlBlock_t));
+
+    if (pcb_array->array == NULL)
+    {
+	// Return null if memory is not allocated and close file
+        fclose(file);
+
+	// Free memory
+        free(pcb_array);
+        return NULL;
+    }
+
+    // Read burst times from file
+    while (fread(&pcb_array->array[pcb_array->size].remaining_burst_time, sizeof(int), 1, file) == 1) {
+        pcb_array->size++;
+
+   	if (pcb_array->array == NULL)
+        {
+        	//Returnns null if array and closes file
+                fclose(file);
+
+                //Free memory
+                free(pcb_array);
+                return NULL;
+
+       }
+
+        // Resize if necessary
+        if (pcb_array->size >= pcb_array->capacity)
+        {
+
+            pcb_array->capacity *= 2; // Double capacity
+            pcb_array->array = realloc(pcb_array->array, pcb_array->capacity * sizeof(ProcessControlBlock_t));
+           
+        }
+    }
+    
+    // Close file
+    fclose(file);
+    return pcb_array;
+
 }
 
 bool shortest_remaining_time_first(dyn_array_t *ready_queue, ScheduleResult_t *result) 

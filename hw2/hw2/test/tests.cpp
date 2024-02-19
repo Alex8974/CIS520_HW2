@@ -8,6 +8,7 @@
 extern "C"
 {
 #include <dyn_array.h>
+#include <processing_scheduling.h>
 }
 
 #define NUM_PCB 30
@@ -26,6 +27,27 @@ TEST(first_come_first_serve, Ready_Que_Null)
 
     // Assert that the function returns false when ready_queue is null
     EXPECT_FALSE(successNull);
+}
+
+TEST(first_come_first_serve, Valid_Input) {
+    // Create a dyn_array_t to represent the ready queue
+    dyn_array_t *ready_queue;
+
+    // Create some sample ProcessControlBlock_t objects and push them into the ready queue
+    ProcessControlBlock_t process1, process2, process3;
+    // Initialize process1, process2, process3 with some data
+    dyn_array_push_back(ready_queue, &process1);
+    dyn_array_push_back(ready_queue, &process2);
+    dyn_array_push_back(ready_queue, &process3);
+
+    // Create a ScheduleResult_t object
+    ScheduleResult_t result;
+
+    // Call the function with the ready queue
+    bool success = first_come_first_serve(ready_queue, &result);
+
+    // Assert that the function returns true
+    EXPECT_TRUE(success);
 }
 
 TEST(load_process_control_blocks, BadFileName1)

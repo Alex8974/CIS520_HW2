@@ -92,7 +92,9 @@ bool priority(dyn_array_t *ready_queue, ScheduleResult_t *result)
         total_turnaround_time += turnaround_time;
         total_run_time += process->remaining_burst_time;
 
-        // do i need to remove the process?
+        // removes the process
+        dyn_array_erase(ready_queue, hp_index);
+
 
         // sets the process as started
         process->started = true;

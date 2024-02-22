@@ -51,6 +51,14 @@ TEST(priority, Valid_Input) {
     // asserts that the function returns true
     EXPECT_TRUE(success);
 
+    for (size_t i = 1; i < dyn_array_size(ready_queue); ++i) {
+        const size_t hold = i;
+        ProcessControlBlock_t *prev_process = static_cast<ProcessControlBlock_t*>(dyn_array_at(ready_queue, hold - 1));
+        ProcessControlBlock_t *curr_process = static_cast<ProcessControlBlock_t*>(dyn_array_at(ready_queue, hold));
+        // Expect that prev_process->priority is less than or equal to curr_process->priority
+        EXPECT_LE(prev_process->priority, curr_process->priority);
+    }
+
     // frees the memory
     dyn_array_destroy(ready_queue);
 }

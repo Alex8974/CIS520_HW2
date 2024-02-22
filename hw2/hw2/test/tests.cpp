@@ -25,33 +25,51 @@ TEST(first_come_first_serve, Ready_Que_Null)
     // calls the function to be tested with null ready_queue
     bool successNull = first_come_first_serve(null_ready_queue, &result);
 
-    // Assert that the function returns false when ready_queue is null
+    // asserts that the function returns false when ready_queue is null
     EXPECT_FALSE(successNull);
 }
 
 TEST(first_come_first_serve, Valid_Input) {
-    // Create a dyn_array_t to represent the ready queue
-    dyn_array_t *ready_queue;
+    // creates the ready queue
+    dyn_array_t *ready_queue = dyn_array_create(10, sizeof(ProcessControlBlock_t), NULL);
 
-    // Create some sample ProcessControlBlock_t objects and push them into the ready queue
+
+    // creates some processes for the process control block
     ProcessControlBlock_t process1, process2, process3;
-    // Initialize process1, process2, process3 with some data
+
+    // initializes process1, process2, process3 with data
+    process1.remaining_burst_time = 10;
+    process1.priority = 1;
+    process1.arrival = 0;
+    process1.started = false;
+
+    process2.remaining_burst_time = 8;
+    process2.priority = 2;
+    process2.arrival = 2;
+    process2.started = false;
+
+    process3.remaining_burst_time = 15;
+    process3.priority = 3;
+    process3.arrival = 5;
+    process3.started = false;
+
     dyn_array_push_back(ready_queue, &process1);
     dyn_array_push_back(ready_queue, &process2);
     dyn_array_push_back(ready_queue, &process3);
 
-    // Create a ScheduleResult_t object
+    // creates a ScheduleResult_t object
     ScheduleResult_t result;
 
-    // Call the function with the ready queue
+    // calls the function with the ready queue
     bool success = first_come_first_serve(ready_queue, &result);
 
-    // Assert that the function returns true
+    // asserts that the function returns true
     EXPECT_TRUE(success);
 }
 
 TEST(load_process_control_blocks, BadFileName1)
 {
+    // checks to make sure it does not try to read in a bad filename
     const char *src_file = " ";
     EXPECT_EQ(NULL, load_process_control_blocks(src_file));
 
@@ -59,6 +77,7 @@ TEST(load_process_control_blocks, BadFileName1)
 
 TEST(load_process_control_blocks, BadFileName2)
 {
+    // checks to make sure it does not try to read in a bad filename
     const char *src_file = "\n";
     EXPECT_EQ(NULL, load_process_control_blocks(src_file));
 

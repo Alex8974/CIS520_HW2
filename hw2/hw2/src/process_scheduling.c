@@ -62,9 +62,54 @@ bool shortest_job_first(dyn_array_t *ready_queue, ScheduleResult_t *result)
 
 bool priority(dyn_array_t *ready_queue, ScheduleResult_t *result) 
 {
-    UNUSED(ready_queue);
-    UNUSED(result);
-    return false;   
+    // checks to see if the input is valid
+    if (ready_queue == NULL || result == NULL)
+        return false;
+
+    // initilizes variables to watch the time
+    uint32_t total_waiting_time = 0;
+    uint32_t total_turnaround_time = 0;
+    unsigned long total_run_time = 0;
+
+    // loops through the queue to find the process with the highest priority
+    while (dyn_array_size(ready_queue) > 0) {
+        // finds the process with the highest priority
+        size_t hp_index = 0; // highest priority inde
+        uint32_t highest_priority = UINT32_MAX; // sets it to maximum value initially
+        for (size_t i = 0; i < dyn_array_size(ready_queue); ++i) {
+            ProcessControlBlock_t *process = dyn_array_at(ready_queue, i);
+            if (process->priority < highest_priority) {
+                highest_priority = process->priority;
+                hp_index = i;
+            }
+        }
+
+        // gets the process with the highest priority from the ready queue
+        ProcessControlBlock_t *process = dyn_array_at(ready_queue, hp_index);
+
+        // calculates waiting time for the process
+        uint32_t wait_time = total_run_time - process->arrival;
+
+        // calculates turnaround time for the process
+        uint32_t turnaround_time = wait_time + process->remaining_burst_time;
+
+        // updates total statistics
+        total_waiting_time += wait_time;
+        total_turnaround_time += turnaround_time;
+        total_run_time += process->remaining_burst_time;
+
+        // do i need to remove the process?
+
+        // sets the process as started
+        process->started = true;
+    }
+
+    // calculates average times
+    result->average_waiting_time = (float)total_waiting_time / dyn_array_size(ready_queue);
+    result->average_turnaround_time = (float)total_turnaround_time / dyn_array_size(ready_queue);
+    result->total_run_time = total_run_time;
+
+    return true;  
 }
 
 bool round_robin(dyn_array_t *ready_queue, ScheduleResult_t *result, size_t quantum) 
@@ -146,6 +191,8 @@ dyn_array_t *load_process_control_blocks(const char *input_file)
     // Close file
     fclose(file);
     return pcb_array;
+
+    return false;
 
 }
 

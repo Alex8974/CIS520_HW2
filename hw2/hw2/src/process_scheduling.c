@@ -18,11 +18,6 @@ void virtual_cpu(ProcessControlBlock_t *process_control_block)
     --process_control_block->remaining_burst_time;
 }
 
-
-
-
-
-
 bool first_come_first_serve(dyn_array_t *ready_queue, ScheduleResult_t *result) 
 {
     //checking to make sure that the passed in values are valid
@@ -63,8 +58,7 @@ bool shortest_job_first(dyn_array_t *ready_queue, ScheduleResult_t *result)
 bool priority(dyn_array_t *ready_queue, ScheduleResult_t *result) 
 {
     // checks to see if the input is valid
-    if (ready_queue == NULL || result == NULL)
-        return false;
+    if (ready_queue == NULL || result == NULL) return false;
 
     // initilizes variables to watch the time
     uint32_t total_waiting_time = 0;
@@ -136,7 +130,7 @@ dyn_array_t *load_process_control_blocks(const char *input_file)
         perror("Error opening file");
         return NULL;
     }
-
+/*
     dyn_array_t *pcb_array = malloc(sizeof(dyn_array_t));
 
     if (pcb_array == NULL)
@@ -191,14 +185,79 @@ dyn_array_t *load_process_control_blocks(const char *input_file)
     // Close file
     fclose(file);
     return pcb_array;
-
+*/
     return false;
 
 }
 
 bool shortest_remaining_time_first(dyn_array_t *ready_queue, ScheduleResult_t *result) 
 {
-    UNUSED(ready_queue);
-    UNUSED(result);
-    return false;
+    // checks to see if the input is valid
+    if (ready_queue == NULL || result == NULL) return false;
+
+    // initilizes variables to watch the time
+    uint32_t total_waiting_time = 0;
+    uint32_t total_turnaround_time = 0;
+    unsigned long total_run_time = 0;
+
+    size_t queue_size = dyn_array_size(ready_queue);
+
+    // loops until all processes are executed
+    while (queue_size > 0) {
+        // finds the process with the shortest remaining time
+        size_t shortest_index = 0;
+        uint32_t shortest_time = UINT32_MAX;
+        for (size_t i = 0; i < queue_size; ++i) {
+            ProcessControlBlock_t *process = dyn_array_at(ready_queue, i);
+            if (process->remaining_burst_time < shortest_time) {
+                shortest_time = process->remaining_burst_time;
+                shortest_index = i;
+            }
+        }
+
+        // gets the process with the shortest remaining time from the ready queue
+        ProcessControlBlock_t *process = dyn_array_at(ready_queue, shortest_index);
+
+        // calculates the waiting time for the process
+        uint32_t wait_time = total_run_time - process->arrival;
+
+        // calculates turnaround time for the process
+        uint32_t turnaround_time = wait_time + process->remaining_burst_time;
+
+        // updates total statistics
+        total_waiting_time += wait_time;
+        total_turnaround_time += turnaround_time;
+        total_run_time += process->remaining_burst_time;
+
+        // removes the process from the ready queue by shifting elements after the target index
+        for (size_t i = shortest_index; i < queue_size - 1; ++i) {
+            // shifts elements
+            memcpy(dyn_array_at(ready_queue, i), dyn_array_at(ready_queue, i + 1), sizeof(ProcessControlBlock_t));
+        }
+
+        // decrements the queue size
+        queue_size--;
+
+        // sets the process as started
+        process->started = true;
+
+        // updates remaining burst time for all processes
+        for (size_t i = 0; i < queue_size; ++i) {
+            ProcessControlBlock_t *p = dyn_array_at(ready_queue, i);
+            if (i != shortest_index && !p->started) {
+                if (p->remaining_burst_time > shortest_time) {
+                    p->remaining_burst_time -= shortest_time;
+                } else {
+                    p->remaining_burst_time = 0;
+                }
+            }
+        }
+    }
+
+    // calculates average time
+    result->average_waiting_time = (float)total_waiting_time / dyn_array_size(ready_queue);
+    result->average_turnaround_time = (float)total_turnaround_time / dyn_array_size(ready_queue);
+    result->total_run_time = total_run_time;
+
+    return true;
 }

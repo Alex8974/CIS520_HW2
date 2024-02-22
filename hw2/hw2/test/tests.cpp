@@ -15,6 +15,74 @@ extern "C"
 #define QUANTUM 5 // Used for Robin Round for process as the run time limit
 
 /*
+priority tests
+*/
+TEST(priority, Valid_Input) {
+    // creates a dyn_array_t to represent the ready queue
+    dyn_array_t *ready_queue = dyn_array_create(10, sizeof(ProcessControlBlock_t), NULL);
+
+    // creates some sample ProcessControlBlock_t objects and push them into the ready queue
+    ProcessControlBlock_t process1, process2, process3;
+    process1.remaining_burst_time = 5;
+    process1.priority = 3;
+    process1.arrival = 0;
+    process1.started = false;
+
+    process2.remaining_burst_time = 3;
+    process2.priority = 1;
+    process2.arrival = 2;
+    process2.started = false;
+
+    process3.remaining_burst_time = 7;
+    process3.priority = 2;
+    process3.arrival = 5;
+    process3.started = false;
+
+    dyn_array_push_back(ready_queue, &process1);
+    dyn_array_push_back(ready_queue, &process2);
+    dyn_array_push_back(ready_queue, &process3);
+
+    // creates a ScheduleResult_t object
+    ScheduleResult_t result;
+
+    // calls the function with the ready queue
+    bool success = priority(ready_queue, &result);
+
+    // asserts that the function returns true
+    EXPECT_TRUE(success);
+
+    // frees the memory
+    dyn_array_destroy(ready_queue);
+}
+
+TEST(priority, Null_ReadyQueue) {
+    // creates a ScheduleResult_t object
+    ScheduleResult_t result;
+
+    // calls the function with NULL ready queue
+    bool success = priority(NULL, &result);
+
+    // asserts that the function returns false
+    EXPECT_FALSE(success);
+}
+
+TEST(priority, Null_Result) {
+    // creates a dyn_array_t to represent the ready queue
+    dyn_array_t *ready_queue = dyn_array_create(10, sizeof(ProcessControlBlock_t), NULL);
+
+    // calls the function with NULL result
+    bool success = priority(ready_queue, NULL);
+
+    // asserts that the function returns false
+    EXPECT_FALSE(success);
+
+    // frees the memory 
+    dyn_array_destroy(ready_queue);
+}
+
+
+
+/*
 shortest_remaining_time_first tests
 */
 TEST(shortest_remaining_time_first, Valid_Input) {

@@ -124,6 +124,52 @@ bool round_robin(dyn_array_t *ready_queue, ScheduleResult_t *result, size_t quan
 // \return a populated dyn_array of ProcessControlBlocks if function ran successful else NULL for an error
 dyn_array_t *load_process_control_blocks(const char *input_file) 
 {
+    // i had to do some weird thing to get in the correct directory of the pcb.bin file not sure if this will need to be changed for others
+    chdir("..");
+    chdir("hw2");
+    chdir("hw2");
+
+    // opens the file in read mode
+    FILE *file = fopen(input_file, "rb");
+
+    // checks if the file opened successfully
+    if (file == NULL) {
+        perror("Error opening file");
+        return NULL;
+    }
+
+    // creates a dynamic array to store ProcessControlBlock_t objects
+    dyn_array_t *pcb_array = dyn_array_create(10, sizeof(ProcessControlBlock_t), NULL);
+
+    // checks if dynamic array creation was successful
+    if (pcb_array == NULL) {
+        fclose(file); // Close the file
+        return NULL;
+    }
+
+    // reads burst times from the file and populate the dynamic array
+    int burst_time;
+    while (fread(&burst_time, sizeof(int), 1, file) == 1) {
+        // creates a new ProcessControlBlock_t object
+        ProcessControlBlock_t pcb;
+        pcb.remaining_burst_time = burst_time;
+        pcb.priority = 0; // sets priority to default value
+        pcb.arrival = 0; // sets arrival time to default value
+        pcb.started = false; // sets started flag to false
+
+        // pushes the ProcessControlBlock_t object into the dynamic array
+        if (!dyn_array_push_back(pcb_array, &pcb)) {
+            fclose(file); // closes the file
+            dyn_array_destroy(pcb_array); // destroies the dynamic array
+            return NULL;
+        }
+    }
+
+    // closes the file
+    fclose(file);
+
+    return pcb_array;
+/*
     // Open file in read mode
     FILE *file = fopen(input_file, "rb");
 
@@ -132,7 +178,7 @@ dyn_array_t *load_process_control_blocks(const char *input_file)
         perror("Error opening file");
         return NULL;
     }
-/*
+
     dyn_array_t *pcb_array = malloc(sizeof(dyn_array_t));
 
     if (pcb_array == NULL)
@@ -197,19 +243,17 @@ bool shortest_remaining_time_first(dyn_array_t *ready_queue, ScheduleResult_t *r
     // checks to see if the input is valid
     if (ready_queue == NULL || result == NULL) return false;
 
-    // initilizes variables to watch the time
+    // initializes variables to track time
     uint32_t total_waiting_time = 0;
     uint32_t total_turnaround_time = 0;
     unsigned long total_run_time = 0;
 
-    size_t queue_size = dyn_array_size(ready_queue);
-
-    // loops until all processes are executed
-    while (queue_size > 0) {
+    // loop until all processes are executed
+    while (dyn_array_size(ready_queue) > 0) {
         // finds the process with the shortest remaining time
         size_t shortest_index = 0;
         uint32_t shortest_time = UINT32_MAX;
-        for (size_t i = 0; i < queue_size; ++i) {
+        for (size_t i = 0; i < dyn_array_size(ready_queue); ++i) {
             ProcessControlBlock_t *process = dyn_array_at(ready_queue, i);
             if (process->remaining_burst_time < shortest_time) {
                 shortest_time = process->remaining_burst_time;
@@ -220,7 +264,7 @@ bool shortest_remaining_time_first(dyn_array_t *ready_queue, ScheduleResult_t *r
         // gets the process with the shortest remaining time from the ready queue
         ProcessControlBlock_t *process = dyn_array_at(ready_queue, shortest_index);
 
-        // calculates the waiting time for the process
+        // calculates waiting time for the process
         uint32_t wait_time = total_run_time - process->arrival;
 
         // calculates turnaround time for the process
@@ -231,14 +275,11 @@ bool shortest_remaining_time_first(dyn_array_t *ready_queue, ScheduleResult_t *r
         total_turnaround_time += turnaround_time;
         total_run_time += process->remaining_burst_time;
 
-        // removes the process from the ready queue by shifting elements after the target index
-        for (size_t i = shortest_index; i < queue_size - 1; ++i) {
-            // shifts elements
-            memcpy(dyn_array_at(ready_queue, i), dyn_array_at(ready_queue, i + 1), sizeof(ProcessControlBlock_t));
-        }
+        // removes the process from the ready queue
+        dyn_array_erase(ready_queue, shortest_index);
 
-        // decrements the queue size
-        queue_size--;
+        // update queue size
+        size_t queue_size = dyn_array_size(ready_queue);
 
         // sets the process as started
         process->started = true;
@@ -246,7 +287,7 @@ bool shortest_remaining_time_first(dyn_array_t *ready_queue, ScheduleResult_t *r
         // updates remaining burst time for all processes
         for (size_t i = 0; i < queue_size; ++i) {
             ProcessControlBlock_t *p = dyn_array_at(ready_queue, i);
-            if (i != shortest_index && !p->started) {
+            if (!p->started && p->arrival <= total_run_time) {
                 if (p->remaining_burst_time > shortest_time) {
                     p->remaining_burst_time -= shortest_time;
                 } else {

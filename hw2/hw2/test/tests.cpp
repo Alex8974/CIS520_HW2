@@ -100,7 +100,7 @@ TEST(shortest_remaining_time_first, Valid_Input) {
     // creates and initialize some sample ProcessControlBlock_t objects and push them into the ready queue
     ProcessControlBlock_t process1, process2, process3;
     process1.remaining_burst_time = 5;
-    process1.priority = 1;
+    process1.priority = 2;
     process1.arrival = 1;
     process1.started = false;
 
@@ -110,7 +110,7 @@ TEST(shortest_remaining_time_first, Valid_Input) {
     process2.started = false;
 
     process3.remaining_burst_time = 7;
-    process3.priority = 2;
+    process3.priority = 1;
     process3.arrival = 6;
     process3.started = false;
 
@@ -127,6 +127,30 @@ TEST(shortest_remaining_time_first, Valid_Input) {
     // asserts that the function returns true
     EXPECT_TRUE(success);
 
+    // expted order
+    std::vector<size_t> expected_order = {1, 0, 2}; 
+
+    // Compare the actual execution order with the expected order
+    for (size_t i = 0; i < dyn_array_size(ready_queue); ++i) {
+    // Get the process executed at this position from the ready queue
+    ProcessControlBlock_t *executed_process = static_cast<ProcessControlBlock_t*>(dyn_array_at(ready_queue, i));
+    
+    // Obtain the expected index of the process executed at position i
+    size_t expected_index = expected_order[i];
+
+    // Find the index of the executed process in the original array
+    size_t actual_index = 0;
+    for (size_t j = 0; j < dyn_array_size(ready_queue); ++j) {
+        ProcessControlBlock_t *original_process = static_cast<ProcessControlBlock_t*>(dyn_array_at(ready_queue, j));
+        if (executed_process == original_process) {
+            actual_index = j;
+            break;
+        }
+    }
+
+    // Check if the executed process matches the expected process
+    EXPECT_EQ(expected_index, actual_index); // Compare the expected index with the actual index
+}
     // frees the memory
     dyn_array_destroy(ready_queue);
 }

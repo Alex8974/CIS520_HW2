@@ -149,13 +149,24 @@ dyn_array_t *load_process_control_blocks(const char *input_file)
 
     // reads burst times from the file and populate the dynamic array
     int burst_time;
-    while (fread(&burst_time, sizeof(int), 1, file) == 1) {
+    int priority;
+    int arrival;
+    int number_of_blocks;
+
+    fread(&number_of_blocks, sizeof(int), 1, file);
+
+    int loopcounter = 0;
+    while(loopcounter < number_of_blocks)
+    {
         // creates a new ProcessControlBlock_t object
         ProcessControlBlock_t pcb;
+        fread(&burst_time, sizeof(int),1,file);
         pcb.remaining_burst_time = burst_time;
-        pcb.priority = 0; // sets priority to default value
-        pcb.arrival = 0; // sets arrival time to default value
-        pcb.started = false; // sets started flag to false
+        fread(&priority, sizeof(int), 1, file);
+        pcb.priority = priority;
+        fread(&arrival, sizeof(int), 1, file);
+        pcb.arrival = arrival;
+        pcb.started = false;
 
         // pushes the ProcessControlBlock_t object into the dynamic array
         if (!dyn_array_push_back(pcb_array, &pcb)) {
@@ -163,8 +174,10 @@ dyn_array_t *load_process_control_blocks(const char *input_file)
             dyn_array_destroy(pcb_array); // destroies the dynamic array
             return NULL;
         }
-    }
 
+        loopcounter++;
+    }
+    
     // closes the file
     fclose(file);
 
@@ -265,7 +278,10 @@ bool shortest_remaining_time_first(dyn_array_t *ready_queue, ScheduleResult_t *r
         ProcessControlBlock_t *process = dyn_array_at(ready_queue, shortest_index);
 
         // calculates waiting time for the process
-        uint32_t wait_time = total_run_time - process->arrival;
+        uint32_t wait_time = 0;
+        if (!process->started) {
+            wait_time = total_run_time - process->arrival;
+        }
 
         // calculates turnaround time for the process
         uint32_t turnaround_time = wait_time + process->remaining_burst_time;

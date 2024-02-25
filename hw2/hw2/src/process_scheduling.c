@@ -167,10 +167,35 @@ bool priority(dyn_array_t *ready_queue, ScheduleResult_t *result)
 
 bool round_robin(dyn_array_t *ready_queue, ScheduleResult_t *result, size_t quantum) 
 {
-    UNUSED(ready_queue);
-    UNUSED(result);
-    UNUSED(quantum);
-    return false;
+    if(ready_queue == NULL || result == NULL) return false;
+
+    uint32_t total_waiting_time = 0;
+    uint32_t total_turnaround_time = 0;
+
+    for(size_t i = 0; i < dyn_array_size(ready_queue); i++){
+        ProcessControlBlock_t *process = dyn_array_at(ready_queue, i);
+
+        if(process->remaining_burst_time > quantum){
+            process->remaining_burst_time -= quantum;
+            result->total_run_time += quantum;
+            total_waiting_time += i * quantum;
+            dyn_array_erase(ready_queue, i);
+            dyn_array_push_back(ready_queue, process);
+        }
+        else{
+            result->total_run_time += process->remaining_burst_time;
+            total_waiting_time += i * process->remaining_burst_time;
+            total_turnaround_time += result->total_run_time;
+            process->remaining_burst_time = 0;
+            dyn_array_erase(ready_queue,i);
+            i--;
+        }
+    }
+
+    result->average_turnaround_time = (float)total_waiting_time / dyn_array_size(ready_queue);
+    result->average_waiting_time = (float)total_turnaround_time / dyn_array_size(ready_queue);
+
+    return true;
 }
 
 

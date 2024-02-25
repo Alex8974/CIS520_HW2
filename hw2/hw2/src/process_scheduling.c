@@ -167,31 +167,39 @@ bool priority(dyn_array_t *ready_queue, ScheduleResult_t *result)
 
 bool round_robin(dyn_array_t *ready_queue, ScheduleResult_t *result, size_t quantum) 
 {
+    //checking to make sure that passed in values are valid
     if(ready_queue == NULL || result == NULL) return false;
-
+    //creating variables for stat tracking
     uint32_t total_waiting_time = 0;
     uint32_t total_turnaround_time = 0;
-
+    //looping through the queue
     for(size_t i = 0; i < dyn_array_size(ready_queue); i++){
+        //getting the process
         ProcessControlBlock_t *process = dyn_array_at(ready_queue, i);
-
+        //if the process still has time remaining
         if(process->remaining_burst_time > quantum){
+            //updating remaining time for the process
             process->remaining_burst_time -= quantum;
+            //updating the total run time stat and waiting time
             result->total_run_time += quantum;
             total_waiting_time += i * quantum;
+            //moving the process to the back of the queue
             dyn_array_erase(ready_queue, i);
             dyn_array_push_back(ready_queue, process);
         }
+        //the process has been complete
         else{
+            //updating stats
             result->total_run_time += process->remaining_burst_time;
             total_waiting_time += i * process->remaining_burst_time;
             total_turnaround_time += result->total_run_time;
+            //process has been complete and removing it from queue
             process->remaining_burst_time = 0;
             dyn_array_erase(ready_queue,i);
             i--;
         }
     }
-
+    //calculating average values
     result->average_turnaround_time = (float)total_waiting_time / dyn_array_size(ready_queue);
     result->average_waiting_time = (float)total_turnaround_time / dyn_array_size(ready_queue);
 

@@ -177,7 +177,7 @@ dyn_array_t *load_process_control_blocks(const char *input_file)
 
         loopcounter++;
     }
-    
+
     // closes the file
     fclose(file);
 
@@ -261,14 +261,16 @@ bool shortest_remaining_time_first(dyn_array_t *ready_queue, ScheduleResult_t *r
     uint32_t total_turnaround_time = 0;
     unsigned long total_run_time = 0;
 
-    // loop until all processes are executed
+    // loops until all processes are executed
+    uint32_t loopcounter = 0;
     while (dyn_array_size(ready_queue) > 0) {
+
         // finds the process with the shortest remaining time
         size_t shortest_index = 0;
         uint32_t shortest_time = UINT32_MAX;
         for (size_t i = 0; i < dyn_array_size(ready_queue); ++i) {
             ProcessControlBlock_t *process = dyn_array_at(ready_queue, i);
-            if (process->remaining_burst_time < shortest_time) {
+            if (process->remaining_burst_time < shortest_time && process->arrival <= loopcounter) {
                 shortest_time = process->remaining_burst_time;
                 shortest_index = i;
             }
@@ -311,6 +313,7 @@ bool shortest_remaining_time_first(dyn_array_t *ready_queue, ScheduleResult_t *r
                 }
             }
         }
+        loopcounter++;
     }
 
     // calculates average time

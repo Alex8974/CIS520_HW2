@@ -40,21 +40,21 @@ int main(int argc, char **argv)
 
 
     // checks to see which algorithm is selected and then runs it
-    if(strcmp(algorithm, "first_come_first_serve") == 0)
+    if(strcmp(algorithm, "first_come_first_serve") == 0 || strcmp(algorithm, "FCFS"))
     {
         success = first_come_first_serve(pcb_array, &result);
     }
-    else if(strcmp(algorithm, "shortest_remaining_time_first") == 0)
+    else if(strcmp(algorithm, "shortest_remaining_time_first") == 0 || strcmp(algorithm, "SRTF") == 0 )
     {
         success = shortest_remaining_time_first(pcb_array, &result);
     }
-    else if (strcmp(algorithm, "priority")){
+    else if (strcmp(algorithm, "priority") == 0 || strcmp(algorithm, "priority") == 0){
         success = priority(pcb_array, &result);
     }
-    else if (strcmp(algorithm, "round_robin")){
+    else if (strcmp(algorithm, "round_robin") == 0 || strcmp(algorithm, "RR") == 0){
         success = round_robin(pcb_array, &result, quantum);
     }
-    else if (strcmp(algorithm, "shortest_job_first"))
+    else if (strcmp(algorithm, "shortest_job_first") == 0 || strcmp(algorithm, "SJF") == 0)
     {
         success = shortest_job_first(pcb_array, &result);
     }

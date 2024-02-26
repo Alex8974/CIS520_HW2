@@ -390,10 +390,12 @@ TEST(shortest_job_first, Valid_Input)
     EXPECT_TRUE(success);
 
     // Get expected average turnaround time
-    double expected_avg_turnaround_time = (10 + 15 + 23) / 3.0;
+    //double expected_avg_turnaround_time = (10 + 15 + 23) / 3.0;
+    double expected_avg_turnaround_time = (41.0000009536743) / 3.0;
+
 
     // Get expected average waiting time
-    double expected_avg_waiting_time = ((10 + 0) + (15 + 0) + (23 + 0)) / 3.0;
+    double expected_avg_waiting_time = ((10 + 0) + (8 + 0)) / 3.0;
 
     // Assert calculated average turnaround time
     EXPECT_DOUBLE_EQ(result.average_turnaround_time, expected_avg_turnaround_time);

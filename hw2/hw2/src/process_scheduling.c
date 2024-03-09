@@ -71,14 +71,14 @@ bool shortest_job_first(dyn_array_t *ready_queue, ScheduleResult_t *result)
 
     dyn_array_sort(ready_queue, cmp_remaining_burst_time);
 
-    // Initalizing statistiacl values
+    // Initalizing statistical values
     double total_turnaround_time = 0;
     double total_waiting_time = 0;
     uint32_t total_run_time = 0;
 
-    // Variables for keeping track of the current and previous completion times
+    // Variable for keeping track of the current time
     uint32_t curr_time = 0;
-    uint32_t previous_completion_time = 0;
+  
 
     // Iterate over the processes within the ready_queue
     for (size_t i = 0; i < dyn_array_size(ready_queue); ++i) {
@@ -89,15 +89,14 @@ bool shortest_job_first(dyn_array_t *ready_queue, ScheduleResult_t *result)
 
         // Calculate the turnaround time and waiting time for the current process
         uint32_t turnaround_time = curr_time - process->arrival;
-        uint32_t waiting_time = previous_completion_time - process->arrival;
+        uint32_t waiting_time = turnaround_time - process->remaining_burst_time;
+
 
         // Update statistic values
         total_turnaround_time += turnaround_time;
         total_waiting_time += waiting_time;
         total_run_time = curr_time;
 
-        // Updates the previous_completion_time variable for the next loop
-        previous_completion_time = curr_time;
     }
 
     // Calculate average values for the statistics
@@ -272,71 +271,6 @@ dyn_array_t *load_process_control_blocks(const char *input_file)
     fclose(file);
 
     return pcb_array;
-/*
-    // Open file in read mode
-    FILE *file = fopen(input_file, "rb");
-
-    if (file == NULL)
-    {
-        perror("Error opening file");
-        return NULL;
-    }
-
-    dyn_array_t *pcb_array = malloc(sizeof(dyn_array_t));
-
-    if (pcb_array == NULL)
-    {
-	
-	// Returns null if array is empty 
-        fclose(file);
-        return NULL;
-
-    }
-
-    // Initialize dyn_array_t
-    pcb_array->size = 0;
-    pcb_array->capacity = 10; // Initial capacity
-    pcb_array->array = malloc(pcb_array->capacity * sizeof(ProcessControlBlock_t));
-
-    if (pcb_array->array == NULL)
-    {
-	// Return null if memory is not allocated and close file
-        fclose(file);
-
-	// Free memory
-        free(pcb_array);
-        return NULL;
-    }
-
-    // Read burst times from file
-    while (fread(&pcb_array->array[pcb_array->size].remaining_burst_time, sizeof(int), 1, file) == 1) {
-        pcb_array->size++;
-
-   	if (pcb_array->array == NULL)
-        {
-        	//Returnns null if array and closes file
-                fclose(file);
-
-                //Free memory
-                free(pcb_array);
-                return NULL;
-
-       }
-
-        // Resize if necessary
-        if (pcb_array->size >= pcb_array->capacity)
-        {
-
-            pcb_array->capacity *= 2; // Double capacity
-            pcb_array->array = realloc(pcb_array->array, pcb_array->capacity * sizeof(ProcessControlBlock_t));
-           
-        }
-    }
-    
-    // Close file
-    fclose(file);
-    return pcb_array;
-*/
     return false;
 
 }

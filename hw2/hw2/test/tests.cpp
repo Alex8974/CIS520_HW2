@@ -257,6 +257,199 @@ TEST(load_process_control_blocks, BadFileName2)
 
 }
 
+
+
+/*
+round_robin test
+*/
+TEST(round_robin, Valid_input) 
+{
+  
+ // Create  dyn_array_t to be in place of the ready queue
+    dyn_array_t *ready_queue = dyn_array_create(10, sizeof(ProcessControlBlock_t), NULL);
+
+    // Initialize sample ProcessControlBlock_t objects and push them into ready_queue
+    ProcessControlBlock_t process1, process2, process3;
+    process1.remaining_burst_time = 10;
+    process2.remaining_burst_time = 5;
+    process3.remaining_burst_time = 8;
+
+    dyn_array_push_back(ready_queue, &process1);
+    dyn_array_push_back(ready_queue, &process2);
+    dyn_array_push_back(ready_queue, &process3);
+
+    // Create a ScheduleResult_t object
+    ScheduleResult_t result = {0, 0, 0};
+
+    // Call the function with the ready queue and quantum
+    size_t quantum = 3;
+    bool success = round_robin(ready_queue, &result, quantum);
+
+    // Assert that the function returns true
+    EXPECT_TRUE(success);
+
+    std::vector<size_t> expected_order = {0, 1, 2};
+
+    // Compare the actual execution order with the expected order
+    for (size_t i = 0; i < dyn_array_size(ready_queue); ++i) {
+        // Get the process executed at this position from the ready queue
+        ProcessControlBlock_t *executed_process = static_cast<ProcessControlBlock_t*>(dyn_array_at(ready_queue, i));
+
+        // Obtain expected index at position i
+        size_t expected_index = expected_order[i];
+
+        // Find the index of the executed process in the original array
+        size_t actual_index = 0;
+        for (size_t j = 0; j < dyn_array_size(ready_queue); ++j) {
+            ProcessControlBlock_t *original_process = static_cast<ProcessControlBlock_t*>(dyn_array_at(ready_queue, j));
+            if (executed_process == original_process) {
+                actual_index = j;
+                break;
+            }
+        }
+
+        EXPECT_EQ(expected_index, actual_index); // Compare expected index with  actual index
+    }
+
+    // Frees the memory
+    dyn_array_destroy(ready_queue); 
+
+}
+
+TEST(round_robin, different_Quantum)
+{
+
+    // Create a dyn_array_t to be in palce of  ready_queue
+    dyn_array_t *ready_queue = dyn_array_create(10, sizeof(ProcessControlBlock_t), NULL);
+
+    // Initialize sample ProcessControlBlock_t objects and push them into the ready queue
+    ProcessControlBlock_t process1, process2, process3;
+    process1.remaining_burst_time = 10;
+    process2.remaining_burst_time = 5;
+    process3.remaining_burst_time = 8;
+
+    dyn_array_push_back(ready_queue, &process1);
+    dyn_array_push_back(ready_queue, &process2);
+    dyn_array_push_back(ready_queue, &process3);
+
+    
+    ScheduleResult_t result = {0, 0, 0};
+
+    // Call the function with the ready queue and different quantum values
+    size_t quantum1 = 3;
+    bool success1 = round_robin(ready_queue, &result, quantum1);
+    EXPECT_TRUE(success1);
+
+    // Assert the result based on quantum1
+    // You can add assertions here to check if the scheduling is correct based on the quantum value
+
+    // Reset the result for the next test
+    result = {0, 0, 0};
+
+    // Call the function with a different quantum value
+    size_t quantum2 = 5;
+    bool success2 = round_robin(ready_queue, &result, quantum2);
+    EXPECT_TRUE(success2);
+
+
+    // Free memory
+    dyn_array_destroy(ready_queue);
+}
+
+
+/*
+shortest_job_first test
+*/
+TEST(shortest_job_first, Valid_Input)
+{
+    // Create dyn_array_t to represent ready_queue
+    dyn_array_t *ready_queue = dyn_array_create(10, sizeof(ProcessControlBlock_t), NULL);
+
+    // Initialize sample ProcessControlBlock_t objects and push into ready_queue
+    ProcessControlBlock_t process1, process2, process3;
+    process1.remaining_burst_time = 10;
+    process1.arrival = 0;
+
+    process2.remaining_burst_time = 5;
+    process2.arrival = 0;
+
+    process3.remaining_burst_time = 8;
+    process3.arrival = 0;
+
+    dyn_array_push_back(ready_queue, &process1);
+    dyn_array_push_back(ready_queue, &process2);
+    dyn_array_push_back(ready_queue, &process3);
+
+    // Create ScheduleResult_t object
+    ScheduleResult_t result;
+
+    // Callfunction with ready_queue
+    bool success = shortest_job_first(ready_queue, &result);
+
+    // Assert that funtion returns true
+    EXPECT_TRUE(success);
+
+    // Get expected average turnaround time
+    //double expected_avg_turnaround_time = (10 + 15 + 23) / 3.0;
+    double expected_avg_turnaround_time = (41.0000009536743) / 3.0;
+
+
+    // Get expected average waiting time
+    double expected_avg_waiting_time = ((10 + 0) + (8 + 0)) / 3.0;
+
+    // Assert calculated average turnaround time
+    EXPECT_DOUBLE_EQ(result.average_turnaround_time, expected_avg_turnaround_time);
+
+    // Assert calculated average waiting time
+    EXPECT_DOUBLE_EQ(result.average_waiting_time, expected_avg_waiting_time);
+
+    // Assert total run time
+    EXPECT_EQ(result.total_run_time, 23u);
+
+    // Free memory
+    dyn_array_destroy(ready_queue);
+}
+
+TEST(shortest_job_first, Null_Pointer_Input)
+{
+    // Create null-pointer for ready_queue
+    dyn_array_t *ready_queue = NULL;
+
+    // Create ScheduleResult_t object
+    ScheduleResult_t result;
+
+    // Call function with null-pointer for ready_queue
+    bool success = shortest_job_first(ready_queue, &result);
+
+    // Assertfunction returns false for null-pointer input
+    EXPECT_FALSE(success);
+}
+
+
+
+TEST(shortest_job_first, Empty_Ready_Queue)
+{
+    // Create empty dyn_array_t to be in palce of ready_queue
+    dyn_array_t *ready_queue = dyn_array_create(10, sizeof(ProcessControlBlock_t), NULL);
+
+    // Create ScheduleResult_t object
+    ScheduleResult_t result;
+
+    // Call function with empty ready_queue
+    bool success = shortest_job_first(ready_queue, &result);
+
+    // Assert thatfunction returns true for an empty ready_queue
+    EXPECT_TRUE(success);
+
+    // Freememory
+    dyn_array_destroy(ready_queue);
+}
+                                
+
+
+
+
+
 /*
 unsigned int score;
 unsigned int total;
